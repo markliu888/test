@@ -96,6 +96,18 @@ notetaking-app/
 - `PUT /api/notes/<id>` - Update a note
 - `DELETE /api/notes/<id>` - Delete a note
 - `GET /api/notes/search?q=<query>` - Search notes
+- `POST /api/notes/translate` - Translate a note title and content without directly saving it
+
+Translation request:
+```json
+{
+   "title": "A note title",
+   "content": "Note content",
+   "target_language": "Spanish"
+}
+```
+
+The translation response contains translated `title` and `content` string fields. The editor replaces both fields and saves using its existing note save endpoint. Configure `OPENROUTER_API_KEY` in the server environment; it is never sent to the browser.
 
 ### Request/Response Format
 ```json
@@ -156,6 +168,7 @@ The application is configured for easy deployment with:
 ### Environment Variables
 - `FLASK_ENV`: Set to `development` for debug mode
 - `SECRET_KEY`: Flask secret key for sessions
+- `OPENROUTER_API_KEY`: OpenRouter API key used by the server-side translator
 
 ### Database Configuration
 - Database file: `src/database/app.db`
